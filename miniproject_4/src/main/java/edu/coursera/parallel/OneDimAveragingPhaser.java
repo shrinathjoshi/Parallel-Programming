@@ -128,16 +128,17 @@ public final class OneDimAveragingPhaser {
 					
 					final int chunkSize = ((n + tasks) - 1) / tasks;
 					final int left = (i * chunkSize) + 1;
-					int right = (left + chunkSize) - 1;
+					int right = (left + chunkSize);
 			
 					if (right > n) {
 						right = n;
 					}
-					int currentPhase = ph[i].arrive();
+					
 				
 					for (int j = left; j <= right; j++) {
 						threadPrivateMyNew[j] = (threadPrivateMyVal[j - 1] + threadPrivateMyVal[j + 1]) / 2.0;
 					}
+					int currentPhase = ph[i].arrive();
 
 					if(i-1>=0) 
 						ph[i-1].awaitAdvance(currentPhase);
